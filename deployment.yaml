@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: siftd-market-template-gke
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketing
+  template:
+    metadata:
+      labels:
+        app: marketing
+    spec:
+      containers:
+      - name: hello-app
+        image: us-west1-docker.pkg.dev/siftd-k8s-dogfood/siftd-market-template-repo/siftd-market-template-gke:latest
+        ports:
+        - containerPort: 80
+        env:
+          - name: PORT
+            value: "80"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"
